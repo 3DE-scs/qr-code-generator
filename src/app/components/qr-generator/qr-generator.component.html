@@ -1,0 +1,95 @@
+<ion-grid>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-xs="12" size-md="8" size-xl="6">
+      <ion-item lines="none">
+        <ion-label>
+          <ion-input clear-on-edit placeholder="Enter the URL" aria-label="url" fill="outline" label="URL" [(ngModel)]="url" (ionChange)="generateQRCode()"></ion-input>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-xs="12" size-md="8" size-xl="6">
+      <ion-grid>
+        <!-- Colors -->
+        <ion-row>
+          <ion-col size-xl="6" size-xs="12">
+            <ion-item lines="none">
+              <ion-label slot="start"><b>Background</b></ion-label>
+              <ion-label slot="end">
+                <input type="color" [(ngModel)]="backgroundColor" (ngModelChange)="generateQRCode()" />
+              </ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col size-xl="6" size-xs="12">
+            <ion-item lines="none">
+              <ion-label slot="start"><b>Foreground</b></ion-label>
+              <ion-label slot="end">
+                <input type="color" [(ngModel)]="foregroundColor" (ngModelChange)="generateQRCode()" />
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- Dot Shape -->
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label><b>Dot Shape</b></ion-label>
+              <ion-select [(ngModel)]="dotShape" (ionChange)="generateQRCode()">
+                <ion-select-option value="rounded">Rounded</ion-select-option>
+                <ion-select-option value="dots">Dots</ion-select-option>
+                <ion-select-option value="classy">Classy</ion-select-option>
+                <ion-select-option value="classy-rounded">Classy Rounded</ion-select-option>
+                <ion-select-option value="square">Square</ion-select-option>
+                <ion-select-option value="extra-rounded">Extra Rounded</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- Logo Image -->
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label><b>Logo</b></ion-label>
+              <input type="file" slot="end"  (change)="onLogoSelected($event)"/>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- Logo Margin -->
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-label><b>Logo Margin</b></ion-label>
+              <ion-range min="0" max="20" [(ngModel)]="logoMargin" (ionChange)="generateQRCode()"></ion-range>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<!-- QR Code Display and Action Buttons -->
+<ion-grid>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-xs="12" size-md="6" size-xl="2">
+      <div #qrContainer></div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button [disabled]="urlChecker(url)" (click)="downloadQRCode()" color="warning" expand="block" fill="outline">DOWNLOAD</ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button [disabled]="urlChecker(url)" (click)="copyQRCode()" color="success" expand="block" fill="outline">COPY</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+</ion-grid>
